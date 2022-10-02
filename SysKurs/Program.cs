@@ -20,12 +20,13 @@ class Program
     static void Main(string[] args)
     {
         var handle = GetConsoleWindow();
-        ShowWindow(handle, 0);
+        ShowWindow(handle, 1);
 
-        using (MyGame game = new MyGame(800, 600, "Курсовая"))
+        using (Game game = new Game(1280, 768, "Курсовая"))
         {
             game.Run();
         }
     }
     
 }
+//Minecraft guide 14.22
