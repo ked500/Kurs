@@ -12,6 +12,7 @@ using System.Drawing;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SysKurs;
 using SysKurs.Buffers;
+using System.Reflection;
 
 public class Game : GameWindow
 {
@@ -68,8 +69,12 @@ public class Game : GameWindow
     {
         IsVisible = true;
         GL.ClearColor(Color.LightGray);
-        _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2,16f/9,0.01f,100f);
+        
+        GL.Enable(EnableCap.DepthTest);
+        _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), (float)1280 / (float)768, 0.1f, 100.0f);
+        //_projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2,16f/9,0.01f,100f);
         _world = Matrix4.Identity;
+
 
         Cube.CountIndexes();
 
