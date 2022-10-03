@@ -18,40 +18,40 @@ namespace SysKurs.Buffers
         public static VertexPositionColor[] vertexes = new VertexPositionColor[]
         {
             //Back 
-            new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(1f, 0f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)), 
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(1f, 1f, 0f, 1f)), 
 
             //Front
             new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),  
+            new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.5f),new Color4(0f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(0f, 0f, 1f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),  
 
             //Left
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(0f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
             new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.5f),new Color4(0f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),
 
             //Right
-            new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(1f, 1f, 0f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(1f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),
 
             //Bottom
-            new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(1f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(1f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.5f),new Color4(1f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(1f, 0f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.5f),new Color4(0f, 0f, 1f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),
 
             //Top
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(0f, 1f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(0f, 1f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(0f, 1f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(0f, 1f, 1f, 1f))
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(1f, 0f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
+            new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(0f, 0f, 1f, 1f)),
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f))
 
         };
 
