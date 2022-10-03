@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -22,6 +22,9 @@ public class Game : GameWindow
     private IndexBuffer indexBuffer;
     private static Matrix4 _projection;
     private static Matrix4 _world;
+    private static Matrix4 _view;
+    private double _time;
+
 
     public Game(int width, int height, string title) : base(GameWindowSettings.Default,
     new NativeWindowSettings()
@@ -41,38 +44,42 @@ public class Game : GameWindow
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
         base.OnUpdateFrame(e);
+        CursorState = CursorState.Grabbed;
 
+        if (!IsFocused)
+            return;
         KeyboardState input = KeyboardState;
         var a = Vector3.Zero;
 
         if (input.IsKeyDown(Keys.Escape))
             Close();
 
-        if (input.IsKeyDown(Keys.D))
+        if (input.IsKeyDown(Keys.D)) // Right
             a.X -= 1;
-        if (input.IsKeyDown(Keys.A))
+        if (input.IsKeyDown(Keys.A)) //Left
             a.X += 1;
-        if (input.IsKeyDown(Keys.LeftShift))
+        if (input.IsKeyDown(Keys.Space)) // Up
             a.Y -= 1;
-        if (input.IsKeyDown(Keys.C))
+        if (input.IsKeyDown(Keys.LeftShift)) // Down
             a.Y += 1;
-        if (input.IsKeyDown(Keys.S))
+        if (input.IsKeyDown(Keys.S)) //Back
             a.Z -= 1;
-        if (input.IsKeyDown(Keys.W))
+        if (input.IsKeyDown(Keys.W)) //Forward
             a.Z += 1;
-
-        if(a.LengthSquared > 0.0001f )
+      
+        if (a.LengthSquared > 0.0001f )
           _world *= Matrix4.CreateTranslation(a.Normalized()*0.05f);
+
+        Console.WriteLine(a);
     }
 
     protected override void OnLoad()
     {
         IsVisible = true;
-        GL.ClearColor(Color.LightGray);
-        
+        GL.ClearColor(Color.LightGray);    
         GL.Enable(EnableCap.DepthTest);
-        _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), (float)1280 / (float)768, 0.1f, 100.0f);
-        //_projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.PiOver2,16f/9,0.01f,100f);
+
+        _projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45f), Size.X / (float)Size.Y, 0.1f, 100.0f);
         _world = Matrix4.Identity;
 
 
@@ -91,6 +98,9 @@ public class Game : GameWindow
             #version 330 core
                 
             uniform mat4 uMVP;
+            uniform mat4 model;
+            uniform mat4 view;
+
             layout (location = 0) in vec3 aPosition;
             layout (location = 1) in vec4 aColor;
             
@@ -100,7 +110,7 @@ public class Game : GameWindow
             void main(void)
             {
                  vColor = aColor;         
-                 gl_Position = uMVP * vec4(aPosition,1.0f);                   
+                 gl_Position = vec4(aPosition,1.0f) * model * view * uMVP;                   
             }
             ";
 
@@ -120,11 +130,8 @@ public class Game : GameWindow
 
         shaderProgram = new ShaderProgramm(vertexShaderCode, fragmentShaderCode);
 
-        //int[] viewport = new int[4];
-        //GL.GetInteger(GetPName.Viewport, viewport);
+        _view = Matrix4.CreateTranslation(0.0f,0.0f,-3.0f);
 
-        //shaderProgram.SetUniform("ViewportSize", (float)viewport[2], (float)viewport[3]);
- 
         base.OnLoad();
     }
 
@@ -146,17 +153,31 @@ public class Game : GameWindow
 
     protected override void OnRenderFrame(FrameEventArgs args)
     {
+        base.OnRenderFrame(args);
+        _time += 10.0 * args.Time;
+
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         GL.UseProgram(shaderProgram.ShaderProgrammHandle);
         GL.BindVertexArray(vertexArray.VertexArrayHandle);
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, indexBuffer.IndexBufferHandle);
+
+        var  _model = Matrix4.Identity * Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(_time));
         var mvp = _world * _projection;
-        GL.UniformMatrix4(0,false,ref mvp);
+        // GL.UniformMatrix4(0, false, ref mvp);
+
+        int location = GL.GetUniformLocation(shaderProgram.ShaderProgrammHandle,"model");
+        GL.UniformMatrix4(location,false, ref _model);
+        location = GL.GetUniformLocation(shaderProgram.ShaderProgrammHandle, "view");
+        GL.UniformMatrix4(location, false, ref _view);
+        location = GL.GetUniformLocation(shaderProgram.ShaderProgrammHandle, "uMVP");
+        GL.UniformMatrix4(location, false, ref mvp);
+
+
         GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
 
         Context.SwapBuffers();
-        base.OnRenderFrame(args);
+       
     }
 
 }
