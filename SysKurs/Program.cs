@@ -22,7 +22,7 @@ class Program
         var handle = GetConsoleWindow();
         ShowWindow(handle, 1);
 
-        using (Game game = new Game(1280, 768, "Курсовая"))
+        using (Window game = new Window(1280, 768, "Курсовая"))
         {
             game.Run();
         }

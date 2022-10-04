@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace SysKurs
 {
@@ -40,6 +41,7 @@ namespace SysKurs
         public readonly int FragmentShaderHandle;
         private readonly ShaderUniform[] uniforms;
         private readonly ShaderAttribute[] attributes;
+        private readonly Dictionary<string, int> _uniformLocations;
 
         public ShaderProgramm(string vertexShaderCode, string fragmentShaderCode)
         {
@@ -60,6 +62,19 @@ namespace SysKurs
             uniforms = CreateUniformList(ShaderProgrammHandle);
 
             attributes = CreateAttributeList(ShaderProgrammHandle);
+
+            GL.GetProgram(ShaderProgrammHandle, GetProgramParameterName.ActiveUniforms, out var numberOfuniforms);
+
+            _uniformLocations = new Dictionary<string, int>();
+
+            for (int i = 0; i < numberOfuniforms; i++)
+            {
+                var key = GL.GetActiveUniform(ShaderProgrammHandle, i, out _, out _);
+
+                var location = GL.GetUniformLocation(ShaderProgrammHandle, key);
+
+                _uniformLocations.Add(key, location);
+            }
         }
 
         ~ShaderProgramm()
@@ -209,6 +224,12 @@ namespace SysKurs
             GL.UseProgram(ShaderProgrammHandle);
             GL.Uniform2(uniform.Location, v1, v2);
             GL.UseProgram(0);
+        }
+
+        public void SetMatrix4(string name, Matrix4 data)
+        {
+            GL.UseProgram(ShaderProgrammHandle);
+            GL.UniformMatrix4(_uniformLocations[name], true, ref data);
         }
 
         private bool GetShaderUniform(string name, out ShaderUniform uniform)
