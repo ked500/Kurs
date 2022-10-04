@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SysKurs.Buffers
+namespace SysKurs.Model
 {
     internal class Cube
     {
@@ -69,6 +69,6 @@ namespace SysKurs.Buffers
                 vertexCount += 4;
             }
         }
-      
+
     }
 }

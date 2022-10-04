@@ -14,6 +14,7 @@ using SysKurs;
 using SysKurs.Buffers;
 using System.Reflection;
 using SysKurs.Common;
+using SysKurs.Model;
 
 public class Window : GameWindow
 {
@@ -93,7 +94,6 @@ public class Window : GameWindow
             _camera.Pitch -= deltaY * sensitivity;
         }
 
-        //Console.WriteLine(_camera.Position);
     }
 
     protected override void OnLoad()
