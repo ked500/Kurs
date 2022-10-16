@@ -63,7 +63,7 @@ namespace SysKurs
         public static readonly VertexInfo VertexInfo = new VertexInfo(
             typeof(VertexPositionTexture),
             new VertexAttribute("Position", 0, 3, 0),
-            new VertexAttribute("TextCoord", 1, 2, 2 * sizeof(float))
+            new VertexAttribute("TextCoord", 1, 2, 3 * sizeof(float))
             );
 
         public VertexPositionTexture(Vector3 position, Vector2 texCoord)

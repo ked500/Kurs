@@ -72,7 +72,7 @@ public class Window : GameWindow
         if (input.IsKeyDown(Keys.Space)) // Up
             _camera.Position += _camera.Up * cameraSpeed * (float)e.Time;
         if (input.IsKeyDown(Keys.LeftShift)) // Down
-            _camera.Position -= _camera.Right * cameraSpeed * (float)e.Time;
+            _camera.Position -= _camera.Up * cameraSpeed * (float)e.Time;
         if (input.IsKeyDown(Keys.S)) //Back
             _camera.Position -= _camera.Front * cameraSpeed * (float)e.Time;
         if (input.IsKeyDown(Keys.W)) //Forward
@@ -133,7 +133,7 @@ public class Window : GameWindow
         //_view = Matrix4.CreateTranslation(0.0f,0.0f,-3.0f);
         _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
 
-        _texture = Texture.LoadFromFile("../../../Resources/test.png");
+        _texture = Texture.LoadFromFile("../../../Resources/container.png");
         _texture.Use(TextureUnit.Texture0);
 
         CursorState = CursorState.Grabbed;

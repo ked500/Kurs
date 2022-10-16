@@ -64,10 +64,10 @@ namespace SysKurs.Model
             new VertexPositionTexture(new Vector3(-0.5f, 0.5f, -0.5f),new Vector2(0.0f, 1.0f)),
 
             //Front
-            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, 0.5f),new Vector2(0.0f,0.0f)), // левый низ
-            new VertexPositionTexture(new Vector3(0.5f, -0.5f, 0.5f),new Vector2(1.0f,0.0f)),  // правый низ
-            new VertexPositionTexture(new Vector3(0.5f, 0.5f, 0.5f),new Vector2(1.0f,1.0f)),   // правый вверх
-            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(0.0f,1.0f)),  // левый вверх
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, 0.5f),new Vector2(0.0f,0.0f)), // левый низ 
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, 0.5f),new Vector2(1.0f,0.0f)),  // правый низ 
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, 0.5f),new Vector2(1.0f,1.0f)),   // правый вверх 
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(0.0f,1.0f)),  // левый вверх 
 
             //Left
             new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(1.0f, 0.0f)),  // левый вверх
@@ -101,9 +101,9 @@ namespace SysKurs.Model
                 indexes[indexCount++] = 0 + vertexCount;
                 indexes[indexCount++] = 1 + vertexCount;
                 indexes[indexCount++] = 2 + vertexCount;
-                indexes[indexCount++] = 0 + vertexCount;
                 indexes[indexCount++] = 2 + vertexCount;
                 indexes[indexCount++] = 3 + vertexCount;
+                indexes[indexCount++] = 0 + vertexCount;
 
                 vertexCount += 4;
             }

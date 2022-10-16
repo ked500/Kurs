@@ -233,7 +233,7 @@ namespace SysKurs
         public void SetMatrix4(string name, Matrix4 data)
         {
             GL.UseProgram(ShaderProgrammHandle);
-            //GL.UniformMatrix4(_uniformLocations[name], true, ref data);
+            GL.UniformMatrix4(_uniformLocations[name], true, ref data);
         }
 
         private bool GetShaderUniform(string name, out ShaderUniform uniform)
