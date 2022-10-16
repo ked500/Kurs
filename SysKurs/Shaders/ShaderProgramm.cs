@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
@@ -43,8 +44,11 @@ namespace SysKurs
         private readonly ShaderAttribute[] attributes;
         private readonly Dictionary<string, int> _uniformLocations;
 
-        public ShaderProgramm(string vertexShaderCode, string fragmentShaderCode)
+        public ShaderProgramm(string vertexShaderPath, string fragmentShaderPath)
         {
+            string vertexShaderCode = File.ReadAllText(vertexShaderPath);
+            string fragmentShaderCode = File.ReadAllText(fragmentShaderPath);
+
             disposed = false;
 
             if(!CompileVertexShader(vertexShaderCode,out VertexShaderHandle, out string vertexShaderCompileError))

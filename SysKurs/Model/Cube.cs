@@ -15,19 +15,19 @@ namespace SysKurs.Model
         public static int[] indexes = new int[Edges * 6];
 
 
-        public static VertexPositionColor[] vertexes = new VertexPositionColor[]
+        public static VertexPositionColor[] ColorVertexes = new VertexPositionColor[]
         {
             //Back 
             new VertexPositionColor(new Vector3(-0.5f, -0.5f, -0.5f),new Color4(1f, 0f, 0f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, -0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(0f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(1f, 1f, 0f, 1f)), 
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, -0.5f),new Color4(1f, 1f, 0f, 1f)),
 
             //Front
             new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.5f),new Color4(0f, 1f, 0f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(0f, 0f, 1f, 1f)),
-            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),  
+            new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f)),
 
             //Left
             new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 0f, 0f, 1f)),
@@ -52,7 +52,46 @@ namespace SysKurs.Model
             new VertexPositionColor(new Vector3(0.5f, 0.5f, -0.5f),new Color4(0f, 1f, 0f, 1f)),
             new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.5f),new Color4(0f, 0f, 1f, 1f)),
             new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.5f),new Color4(1f, 1f, 0f, 1f))
+        };
 
+        public static VertexPositionTexture[] TextureVertexes = new VertexPositionTexture[]
+        {
+
+            //Back
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, -0.5f),new Vector2(0.0f, 0.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, -0.5f),new Vector2(1.0f, 0.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, -0.5f),new Vector2(1.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, -0.5f),new Vector2(0.0f, 1.0f)),
+
+            //Front
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, 0.5f),new Vector2(0.0f,0.0f)), // левый низ
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, 0.5f),new Vector2(1.0f,0.0f)),  // правый низ
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, 0.5f),new Vector2(1.0f,1.0f)),   // правый вверх
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(0.0f,1.0f)),  // левый вверх
+
+            //Left
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(1.0f, 0.0f)),  // левый вверх
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, -0.5f),new Vector2(1.0f, 1.0f)), // правый вверх
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, -0.5f),new Vector2(0.0f, 1.0f)),// правый низ
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, 0.5f),new Vector2(0.0f, 0.0f)), // левый низ
+
+            //Right
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, 0.5f),new Vector2(1.0f, 0.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, -0.5f),new Vector2(1.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, -0.5f),new Vector2(0.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, 0.5f),new Vector2(0.0f, 0.0f)),
+
+            //Bottom
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, -0.5f),new Vector2(0.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, -0.5f),new Vector2(1.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, -0.5f, 0.5f),new Vector2(1.0f, 0.0f)),
+            new VertexPositionTexture(new Vector3(-0.5f, -0.5f, 0.5f),new Vector2(0.0f, 0.0f)),
+
+            //Top
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, -0.5f),new Vector2(0.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, -0.5f),new Vector2(1.0f, 1.0f)),
+            new VertexPositionTexture(new Vector3(0.5f, 0.5f, 0.5f),new Vector2(1.0f, 0.0f)),
+            new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(0.0f, 0.0f))
         };
 
         public static void CountIndexes()

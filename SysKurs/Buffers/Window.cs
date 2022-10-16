@@ -23,6 +23,8 @@ public class Window : GameWindow
     private ShaderProgramm shaderProgram;
     private VertexArray vertexArray;
     private IndexBuffer indexBuffer;
+
+    private Texture _texture;
   
     //Camera
     private Camera _camera;
@@ -101,60 +103,40 @@ public class Window : GameWindow
         base.OnLoad();
 
         IsVisible = true;
-        GL.ClearColor(Color.LightGray);    
+        GL.ClearColor(Color.Black);    
         GL.Enable(EnableCap.DepthTest);
     
         Cube.CountIndexes();
 
-        vertexBuffer = new VertexBuffer(VertexPositionColor.VertexInfo, Cube.vertexes.Length);
-        vertexBuffer.SetData(Cube.vertexes, Cube.vertexes.Length);
+        //ColoredCube
+        //vertexBuffer = new VertexBuffer(VertexPositionColor.VertexInfo, Cube.ColorVertexes.Length);
+        //vertexBuffer.SetData(Cube.ColorVertexes, Cube.ColorVertexes.Length);
+
+        //indexBuffer = new IndexBuffer(Cube.indexes.Length);
+        //indexBuffer.SetData(Cube.indexes, Cube.indexes.Length);
+
+        //Textured Cube
+        vertexBuffer = new VertexBuffer(VertexPositionTexture.VertexInfo, Cube.TextureVertexes.Length);
+        vertexBuffer.SetData(Cube.TextureVertexes, Cube.TextureVertexes.Length);
 
         indexBuffer = new IndexBuffer(Cube.indexes.Length);
         indexBuffer.SetData(Cube.indexes, Cube.indexes.Length);
 
         vertexArray = new VertexArray(vertexBuffer);
 
-        string vertexShaderCode =
-            @"
-            #version 330 core
-                
-            uniform mat4 model;
-            uniform mat4 view;
-            uniform mat4 projection;
+        //RGBA Shader
+        //shaderProgram = new ShaderProgramm("../../../Shaders/shader_rgba.vert", "../../../Shaders/shader_rgba.frag");
 
-            layout (location = 0) in vec3 aPosition;
-            layout (location = 1) in vec4 aColor;
-            
-            
-            out vec4 vColor;
-
-            void main(void)
-            {
-                 vColor = aColor;         
-                 gl_Position = vec4(aPosition,1.0f) * model * view * projection;                   
-            }
-            ";
-
-        string fragmentShaderCode =
-            @"
-            #version 330 core
-                
-            in vec4 vColor;
-            out vec4 pixelColor;
-
-            void main()
-            {
-                pixelColor = vColor;
-
-            }
-            ";
-
-        shaderProgram = new ShaderProgramm(vertexShaderCode, fragmentShaderCode);
+        //Texture Shaders
+        shaderProgram = new ShaderProgramm("../../../Shaders/shader_text.vert", "../../../Shaders/shader_text.frag");
 
         //_view = Matrix4.CreateTranslation(0.0f,0.0f,-3.0f);
         _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
 
-        CursorState = CursorState.Grabbed;    
+        _texture = Texture.LoadFromFile("../../../Resources/container.png");
+        _texture.Use(TextureUnit.Texture0);
+
+        CursorState = CursorState.Grabbed;
     }
 
     protected override void OnUnload()
