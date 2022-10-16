@@ -133,7 +133,7 @@ public class Window : GameWindow
         //_view = Matrix4.CreateTranslation(0.0f,0.0f,-3.0f);
         _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
 
-        _texture = Texture.LoadFromFile("../../../Resources/container.png");
+        _texture = Texture.LoadFromFile("../../../Resources/test.png");
         _texture.Use(TextureUnit.Texture0);
 
         CursorState = CursorState.Grabbed;
