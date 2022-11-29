@@ -1,4 +1,6 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
+using SysKurs.Buffers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,5 +111,35 @@ namespace SysKurs.Model
             }
         }
 
+        public static void CreateRGBCube(out VertexBuffer vertexBuffer, out IndexBuffer indexBuffer,
+            out VertexArray vertexArray, out ShaderProgramm shaderProgram)
+        {
+            vertexBuffer = new VertexBuffer(VertexPositionColor.VertexInfo, ColorVertexes.Length);
+            vertexBuffer.SetData(ColorVertexes, ColorVertexes.Length);
+
+            indexBuffer = new IndexBuffer(indexes.Length);
+            indexBuffer.SetData(indexes, indexes.Length);
+
+            vertexArray = new VertexArray(vertexBuffer);
+
+            shaderProgram = new ShaderProgramm("../../../Shaders/shader_rgba.vert", "../../../Shaders/shader_rgba.frag");
+        }
+
+        public static void CreateTexturedCube(out VertexBuffer vertexBuffer, out IndexBuffer indexBuffer, 
+            out VertexArray vertexArray, out ShaderProgramm shaderProgram,out Texture _texture)
+        {
+            vertexBuffer = new VertexBuffer(VertexPositionTexture.VertexInfo, TextureVertexes.Length);
+            vertexBuffer.SetData(TextureVertexes, TextureVertexes.Length);
+
+            indexBuffer = new IndexBuffer(indexes.Length);
+            indexBuffer.SetData(indexes, indexes.Length);
+
+            vertexArray = new VertexArray(vertexBuffer);
+
+            shaderProgram = new ShaderProgramm("../../../Shaders/shader_text.vert", "../../../Shaders/shader_text.frag");
+
+            _texture = Texture.LoadFromFile("../../../Resources/container.png");
+            _texture.Use(TextureUnit.Texture0);
+        }
     }
 }

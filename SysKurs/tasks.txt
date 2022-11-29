@@ -1,4 +1,0 @@
-﻿1) Рефакторинг ShaderProgramm
-2) Textures
-3) Ui
-4) Self made rotations

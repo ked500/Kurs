@@ -105,36 +105,16 @@ public class Window : GameWindow
         IsVisible = true;
         GL.ClearColor(Color.Black);    
         GL.Enable(EnableCap.DepthTest);
-    
         Cube.CountIndexes();
 
-        //ColoredCube
-        //vertexBuffer = new VertexBuffer(VertexPositionColor.VertexInfo, Cube.ColorVertexes.Length);
-        //vertexBuffer.SetData(Cube.ColorVertexes, Cube.ColorVertexes.Length);
-
-        //indexBuffer = new IndexBuffer(Cube.indexes.Length);
-        //indexBuffer.SetData(Cube.indexes, Cube.indexes.Length);
+        //RGB Cube
+        //Cube.CreateRGBCube(out vertexBuffer, out indexBuffer, out vertexArray, out shaderProgram);
 
         //Textured Cube
-        vertexBuffer = new VertexBuffer(VertexPositionTexture.VertexInfo, Cube.TextureVertexes.Length);
-        vertexBuffer.SetData(Cube.TextureVertexes, Cube.TextureVertexes.Length);
+        //Cube.CreateTexturedCube(out vertexBuffer, out indexBuffer, out vertexArray, out shaderProgram, out _texture);
 
-        indexBuffer = new IndexBuffer(Cube.indexes.Length);
-        indexBuffer.SetData(Cube.indexes, Cube.indexes.Length);
-
-        vertexArray = new VertexArray(vertexBuffer);
-
-        //RGBA Shader
-        //shaderProgram = new ShaderProgramm("../../../Shaders/shader_rgba.vert", "../../../Shaders/shader_rgba.frag");
-
-        //Texture Shaders
-        shaderProgram = new ShaderProgramm("../../../Shaders/shader_text.vert", "../../../Shaders/shader_text.frag");
-
-        //_view = Matrix4.CreateTranslation(0.0f,0.0f,-3.0f);
+        //Camera
         _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
-
-        _texture = Texture.LoadFromFile("../../../Resources/container.png");
-        _texture.Use(TextureUnit.Texture0);
 
         CursorState = CursorState.Grabbed;
     }
@@ -159,22 +139,10 @@ public class Window : GameWindow
     protected override void OnRenderFrame(FrameEventArgs args)
     {
         base.OnRenderFrame(args);
-        _time += 4.0 * args.Time;
-
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-        GL.UseProgram(shaderProgram.ShaderProgrammHandle);
-        GL.BindVertexArray(vertexArray.VertexArrayHandle);
-        GL.BindBuffer(BufferTarget.ElementArrayBuffer, indexBuffer.IndexBufferHandle);
-
-        var _model = Matrix4.Identity * Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(_time));
-
-        shaderProgram.SetMatrix4("model",_model);
-        shaderProgram.SetMatrix4("view", _camera.GetViewMatrix());
-        shaderProgram.SetMatrix4("projection", _camera.GetProjectionMatrix());
-
-        GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
-
+        SpinCube(args);
+      
         Context.SwapBuffers();
     }
 
@@ -183,6 +151,24 @@ public class Window : GameWindow
         base.OnMouseWheel(e);
 
         _camera.Fov -= e.OffsetY;
+    }
+
+    private void SpinCube(FrameEventArgs args)
+    {
+        _time += 4.0 * args.Time;
+
+        GL.UseProgram(shaderProgram.ShaderProgrammHandle);
+        GL.BindVertexArray(vertexArray.VertexArrayHandle);
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, indexBuffer.IndexBufferHandle);
+
+
+        var _model = Matrix4.Identity * Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(_time));
+
+        shaderProgram.SetMatrix4("model", _model);
+        shaderProgram.SetMatrix4("view", _camera.GetViewMatrix());
+        shaderProgram.SetMatrix4("projection", _camera.GetProjectionMatrix());
+
+        GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
     }
 
 }
