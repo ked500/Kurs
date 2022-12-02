@@ -236,6 +236,12 @@ namespace SysKurs
             GL.UniformMatrix4(_uniformLocations[name], true, ref data);
         }
 
+        public void SetVector3(string name, Vector3 data)
+        {
+            GL.UseProgram(ShaderProgrammHandle);
+            GL.Uniform3(_uniformLocations[name], data);
+        }
+
         private bool GetShaderUniform(string name, out ShaderUniform uniform)
         {
             uniform = new ShaderUniform();

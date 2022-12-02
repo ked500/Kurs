@@ -96,6 +96,45 @@ namespace SysKurs.Model
             new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.5f),new Vector2(0.0f, 0.0f))
         };
 
+        public static VertexPositionNormal[] NormalVertexes = new VertexPositionNormal[]
+        {
+            //Back
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f)),
+
+            //Front
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f)), 
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f)),  
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f)),  
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f)), 
+
+            //Left
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f)), 
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f)), 
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f)),
+
+            //Right
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f)),
+
+            //Bottom
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f)),
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f)),
+
+            //Top
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f)),
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f))
+        };
+
         public static void CountIndexes()
         {
             for (int i = 0; i < Edges; i++)
@@ -114,6 +153,7 @@ namespace SysKurs.Model
         public static void CreateRGBCube(out VertexBuffer vertexBuffer, out IndexBuffer indexBuffer,
             out VertexArray vertexArray, out ShaderProgramm shaderProgram)
         {
+            CountIndexes();
             vertexBuffer = new VertexBuffer(VertexPositionColor.VertexInfo, ColorVertexes.Length);
             vertexBuffer.SetData(ColorVertexes, ColorVertexes.Length);
 
@@ -122,12 +162,13 @@ namespace SysKurs.Model
 
             vertexArray = new VertexArray(vertexBuffer);
 
-            shaderProgram = new ShaderProgramm("../../../Shaders/shader_rgba.vert", "../../../Shaders/shader_rgba.frag");
+            shaderProgram = new ShaderProgramm("../../../Shaders/RGB Shaders/shader_rgba.vert", "../../../Shaders/RGB Shaders/shader_rgba.frag");
         }
 
         public static void CreateTexturedCube(out VertexBuffer vertexBuffer, out IndexBuffer indexBuffer, 
             out VertexArray vertexArray, out ShaderProgramm shaderProgram,out Texture _texture)
         {
+            CountIndexes();
             vertexBuffer = new VertexBuffer(VertexPositionTexture.VertexInfo, TextureVertexes.Length);
             vertexBuffer.SetData(TextureVertexes, TextureVertexes.Length);
 
@@ -136,10 +177,25 @@ namespace SysKurs.Model
 
             vertexArray = new VertexArray(vertexBuffer);
 
-            shaderProgram = new ShaderProgramm("../../../Shaders/shader_text.vert", "../../../Shaders/shader_text.frag");
+            shaderProgram = new ShaderProgramm("../../../Shaders/Texture Shaders/shader_text.vert", "../../../Shaders/Texture Shaders/shader_text.frag");
 
             _texture = Texture.LoadFromFile("../../../Resources/container.png");
             _texture.Use(TextureUnit.Texture0);
+        }
+
+        public static void CreateCubeForLighting(out VertexBuffer vertexBuffer, out IndexBuffer indexBuffer,
+            out VertexArray vertexArray, out ShaderProgramm shaderProgram)
+        {
+            CountIndexes();
+            vertexBuffer = new VertexBuffer(VertexPositionNormal.VertexInfo, NormalVertexes.Length);
+            vertexBuffer.SetData(NormalVertexes,NormalVertexes.Length);
+
+            indexBuffer = new IndexBuffer(indexes.Length);
+            indexBuffer.SetData(indexes, indexes.Length);
+
+            vertexArray = new VertexArray(vertexBuffer);
+
+            shaderProgram = new ShaderProgramm("../../../Shaders/Lighting Shaders/shader.vert", "../../../Shaders/Lighting Shaders/lighting.frag");
         }
     }
 }

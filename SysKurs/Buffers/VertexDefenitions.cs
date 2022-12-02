@@ -72,4 +72,18 @@ namespace SysKurs
             TexCoord = texCoord;
         }
     }
+
+    public readonly struct VertexPositionNormal
+    {
+        public readonly Vector3 Position;
+        public static readonly VertexInfo VertexInfo = new VertexInfo(
+            typeof(VertexPositionNormal),
+            new VertexAttribute("Position", 0, 3, 0)
+            );
+
+        public VertexPositionNormal(Vector3 position)
+        {
+            Position = position;
+        }
+    }
 }

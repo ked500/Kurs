@@ -18,11 +18,17 @@ using SysKurs.Model;
 
 public class Window : GameWindow
 {
-    //Drawing
-    private VertexBuffer vertexBuffer;
-    private ShaderProgramm shaderProgram;
-    private VertexArray vertexArray;
-    private IndexBuffer indexBuffer;
+    //Cube
+    private VertexBuffer CubeVertexBuffer;
+    private ShaderProgramm CubeShaderProgramm;
+    private VertexArray CubeVertexArray;
+    private IndexBuffer CubeIndexBuffer;
+
+    //Lamp
+    private VertexBuffer LampVertexBuffer;
+    private ShaderProgramm LampShaderProgramm;
+    private VertexArray LampVertexArray;
+    private IndexBuffer LampIndexBuffer;
 
     private Texture _texture;
   
@@ -103,15 +109,21 @@ public class Window : GameWindow
         base.OnLoad();
 
         IsVisible = true;
-        GL.ClearColor(Color.Black);    
+        //GL.ClearColor(Color.Black);
+        GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         GL.Enable(EnableCap.DepthTest);
-        Cube.CountIndexes();
 
         //RGB Cube
-        //Cube.CreateRGBCube(out vertexBuffer, out indexBuffer, out vertexArray, out shaderProgram);
+        //Cube.CreateRGBCube(out CubeVertexBuffer, out CubeIndexBuffer, out CubeVertexArray, out CubeShaderProgramm);
 
         //Textured Cube
-        //Cube.CreateTexturedCube(out vertexBuffer, out indexBuffer, out vertexArray, out shaderProgram, out _texture);
+        //Cube.CreateTexturedCube(out CubeVertexBuffer, out CubeIndexBuffer, out CubeVertexArray, out CubeShaderProgramm, out _texture);
+
+        //Static Cube
+        Cube.CreateCubeForLighting(out CubeVertexBuffer, out CubeIndexBuffer, out CubeVertexArray, out CubeShaderProgramm);
+
+        //Lamp 
+        Lamp.CreateLamp(out LampVertexBuffer, out LampIndexBuffer, out LampVertexArray, out LampShaderProgramm);
 
         //Camera
         _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
@@ -121,10 +133,10 @@ public class Window : GameWindow
 
     protected override void OnUnload()
     {
-        vertexArray?.Dispose();
-        indexBuffer?.Dispose();
-        vertexBuffer?.Dispose();
-        shaderProgram?.Dispose();
+        CubeVertexArray?.Dispose();
+        CubeIndexBuffer?.Dispose();
+        CubeVertexBuffer?.Dispose();
+        CubeShaderProgramm?.Dispose();
        
         base.OnUnload();
     }
@@ -141,7 +153,10 @@ public class Window : GameWindow
         base.OnRenderFrame(args);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-        SpinCube(args);
+        //SpinCube(args);
+        DrawCube(args);
+        DrawLamp(args);
+
       
         Context.SwapBuffers();
     }
@@ -157,18 +172,49 @@ public class Window : GameWindow
     {
         _time += 4.0 * args.Time;
 
-        GL.UseProgram(shaderProgram.ShaderProgrammHandle);
-        GL.BindVertexArray(vertexArray.VertexArrayHandle);
-        GL.BindBuffer(BufferTarget.ElementArrayBuffer, indexBuffer.IndexBufferHandle);
+        GL.UseProgram(CubeShaderProgramm.ShaderProgrammHandle);
+        GL.BindVertexArray(CubeVertexArray.VertexArrayHandle);
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, CubeIndexBuffer.IndexBufferHandle);
 
 
         var _model = Matrix4.Identity * Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(_time));
 
-        shaderProgram.SetMatrix4("model", _model);
-        shaderProgram.SetMatrix4("view", _camera.GetViewMatrix());
-        shaderProgram.SetMatrix4("projection", _camera.GetProjectionMatrix());
+        CubeShaderProgramm.SetMatrix4("model", _model);
+        CubeShaderProgramm.SetMatrix4("view", _camera.GetViewMatrix());
+        CubeShaderProgramm.SetMatrix4("projection", _camera.GetProjectionMatrix());
 
         GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
     }
 
+    private void DrawCube(FrameEventArgs args)
+    {
+        GL.UseProgram(CubeShaderProgramm.ShaderProgrammHandle);
+        GL.BindVertexArray(CubeVertexArray.VertexArrayHandle);
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, CubeIndexBuffer.IndexBufferHandle);
+
+        CubeShaderProgramm.SetMatrix4("model", Matrix4.Identity);
+        CubeShaderProgramm.SetMatrix4("view", _camera.GetViewMatrix());
+        CubeShaderProgramm.SetMatrix4("projection", _camera.GetProjectionMatrix());
+
+        CubeShaderProgramm.SetVector3("objectColor", new Vector3(1.0f, 0.5f, 0.31f));
+        CubeShaderProgramm.SetVector3("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
+
+        GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
+    }
+
+    private void DrawLamp(FrameEventArgs args)
+    {
+        GL.UseProgram(LampShaderProgramm.ShaderProgrammHandle);
+        GL.BindVertexArray(LampVertexArray.VertexArrayHandle);
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, LampIndexBuffer.IndexBufferHandle);
+
+        Matrix4 lampMatrix = Matrix4.CreateScale(0.2f);
+        lampMatrix = lampMatrix * Matrix4.CreateTranslation(new Vector3(1.2f,1.0f,2.0f));
+
+        LampShaderProgramm.SetMatrix4("model", lampMatrix);
+        LampShaderProgramm.SetMatrix4("view", _camera.GetViewMatrix());
+        LampShaderProgramm.SetMatrix4("projection", _camera.GetProjectionMatrix());
+
+        GL.DrawElements(PrimitiveType.Triangles, Lamp.indexCount, DrawElementsType.UnsignedInt, 0);
+    }
 }
