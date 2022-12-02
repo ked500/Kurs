@@ -73,17 +73,34 @@ namespace SysKurs
         }
     }
 
-    public readonly struct VertexPositionNormal
+    public readonly struct VertexPosition
     {
         public readonly Vector3 Position;
         public static readonly VertexInfo VertexInfo = new VertexInfo(
-            typeof(VertexPositionNormal),
+            typeof(VertexPosition),
             new VertexAttribute("Position", 0, 3, 0)
             );
 
-        public VertexPositionNormal(Vector3 position)
+        public VertexPosition(Vector3 position)
         {
             Position = position;
+        }
+    }
+
+    public readonly struct VertexPositionNormal
+    {
+        public readonly Vector3 Position;
+        public readonly Vector3 Normal;
+        public static readonly VertexInfo VertexInfo = new VertexInfo(
+            typeof(VertexPositionNormal),
+            new VertexAttribute("Position", 0, 3, 0),
+            new VertexAttribute("Normal", 1, 3, 3 * sizeof(float))
+            );
+
+        public VertexPositionNormal(Vector3 position,Vector3 normal)
+        {
+            Position = position;
+            Normal = normal;
         }
     }
 }

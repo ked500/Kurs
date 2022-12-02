@@ -198,6 +198,9 @@ public class Window : GameWindow
 
         CubeShaderProgramm.SetVector3("objectColor", new Vector3(1.0f, 0.5f, 0.31f));
         CubeShaderProgramm.SetVector3("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
+        CubeShaderProgramm.SetVector3("lightPos", new Vector3(1.2f, 1.0f, 2.0f));
+        CubeShaderProgramm.SetVector3("viewPos", _camera.Position);
+
 
         GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
     }

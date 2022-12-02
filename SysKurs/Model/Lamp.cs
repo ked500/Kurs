@@ -16,43 +16,43 @@ namespace SysKurs.Model
         public static int[] indexes = new int[Edges * 6];
 
 
-        public static VertexPositionNormal[] ColorVertexes = new VertexPositionNormal[]
+        public static VertexPosition[] ColorVertexes = new VertexPosition[]
         {
             //Back 
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 0.5f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 1.0f, 0.5f)),
-            new VertexPositionNormal(new Vector3(0.5f, 1.0f, 0.5f)),
+            new VertexPosition(new Vector3(0.5f, 0.5f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 0.5f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 1.0f, 0.5f)),
+            new VertexPosition(new Vector3(0.5f, 1.0f, 0.5f)),
 
             //Front
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 1.0f)),
-            new VertexPositionNormal(new Vector3(1.0f, 0.5f, 1.0f)),
-            new VertexPositionNormal(new Vector3(1.0f, 1.0f, 1.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 1.0f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 0.5f, 1.0f)),
+            new VertexPosition(new Vector3(1.0f, 0.5f, 1.0f)),
+            new VertexPosition(new Vector3(1.0f, 1.0f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 1.0f, 1.0f)),
 
             //Left
-            new VertexPositionNormal(new Vector3(0.5f, 1.0f, 1.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 1.0f, 0.5f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 1.0f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 1.0f, 0.5f)),
+            new VertexPosition(new Vector3(0.5f, 0.5f, 0.5f)),
+            new VertexPosition(new Vector3(0.5f, 0.5f, 1.0f)),
 
             //Right
-            new VertexPositionNormal(new Vector3(1.0f, 1.0f, 1.0f)),
-            new VertexPositionNormal(new Vector3(1.0f, 1.0f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 0.5f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 0.5f, 1.0f)),
+            new VertexPosition(new Vector3(1.0f, 1.0f, 1.0f)),
+            new VertexPosition(new Vector3(1.0f, 1.0f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 0.5f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 0.5f, 1.0f)),
 
             //Bottom
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 0.5f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 0.5f, 1.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 0.5f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 0.5f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 0.5f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 0.5f, 1.0f)),
 
             //Top
-            new VertexPositionNormal(new Vector3(0.5f, 1.0f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 1.0f, 0.5f)),
-            new VertexPositionNormal(new Vector3(1.0f, 1.0f, 1.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 1.0f, 1.0f))
+            new VertexPosition(new Vector3(0.5f, 1.0f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 1.0f, 0.5f)),
+            new VertexPosition(new Vector3(1.0f, 1.0f, 1.0f)),
+            new VertexPosition(new Vector3(0.5f, 1.0f, 1.0f))
         };
       
         public static void CountIndexes()
@@ -74,7 +74,7 @@ namespace SysKurs.Model
             out VertexArray vertexArray, out ShaderProgramm shaderProgram)
         {
             CountIndexes();
-            vertexBuffer = new VertexBuffer(VertexPositionNormal.VertexInfo, ColorVertexes.Length);
+            vertexBuffer = new VertexBuffer(VertexPosition.VertexInfo, ColorVertexes.Length);
             vertexBuffer.SetData(ColorVertexes, ColorVertexes.Length);
 
             indexBuffer = new IndexBuffer(indexes.Length);
