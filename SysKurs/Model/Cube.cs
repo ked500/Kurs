@@ -99,40 +99,40 @@ namespace SysKurs.Model
         public static VertexPositionNormal[] NormalVertexes = new VertexPositionNormal[]
         {
             //Back
-            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(0.0f, 0.0f, -1.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f), new Vector3(0.0f, 0.0f, -1.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f), new Vector3(0.0f, 0.0f, -1.0f)),
-            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f), new Vector3(0.0f, 0.0f, -1.0f)),
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(0.0f, 0.0f, -1.0f), new Vector2(0.0f, 0.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f),  new Vector3(0.0f, 0.0f, -1.0f), new Vector2(1.0f, 0.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f),   new Vector3(0.0f, 0.0f, -1.0f), new Vector2(1.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f),  new Vector3(0.0f, 0.0f, -1.0f), new Vector2(0.0f, 1.0f)),
 
             //Front
-            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f), new Vector3(0.0f, 0.0f, 1.0f)), 
-            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f), new Vector3(0.0f, 0.0f, 1.0f)),  
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(0.0f, 0.0f, 1.0f)),  
-            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f), new Vector3(0.0f, 0.0f, 1.0f)), 
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f),  new Vector3(0.0f, 0.0f, 1.0f), new Vector2(0.0f,0.0f)), 
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f),   new Vector3(0.0f, 0.0f, 1.0f), new Vector2(1.0f,0.0f)),  
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f),    new Vector3(0.0f, 0.0f, 1.0f), new Vector2(1.0f,1.0f)),  
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f),   new Vector3(0.0f, 0.0f, 1.0f), new Vector2(0.0f,1.0f)), 
 
             //Left
-            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f), new Vector3(-1.0f, 0.0f, 0.0f)), 
-            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f), new Vector3(-1.0f, 0.0f, 0.0f)), 
-            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(-1.0f, 0.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f), new Vector3(-1.0f, 0.0f, 0.0f)),
-
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f),   new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)), 
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f),  new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)), 
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f),  new Vector3(-1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),
+        
             //Right
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(1.0f, 0.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f), new Vector3(1.0f, 0.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f), new Vector3(1.0f, 0.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f), new Vector3(1.0f, 0.0f, 0.0f)),
-
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f),    new Vector3(1.0f, 0.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f),   new Vector3(1.0f, 0.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f),  new Vector3(1.0f, 0.0f, 0.0f) ,new Vector2(0.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f),   new Vector3(1.0f, 0.0f, 0.0f), new Vector2(0.0f, 0.0f)),     
+               
             //Bottom
-            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(0.0f, -1.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f), new Vector3(0.0f, -1.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f), new Vector3(0.0f, -1.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f), new Vector3(0.0f, -1.0f, 0.0f)),
-
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(0.0f, -1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, -0.5f),  new Vector3(0.0f, -1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, -0.5f, 0.5f),   new Vector3(0.0f, -1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+            new VertexPositionNormal(new Vector3(-0.5f, -0.5f, 0.5f),  new Vector3(0.0f, -1.0f, 0.0f), new Vector2(0.0f, 0.0f)),
+                        
             //Top
-            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f), new Vector3(0.0f, 1.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f), new Vector3(0.0f, 1.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(0.0f, 1.0f, 0.0f)),
-            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f), new Vector3(0.0f, 1.0f, 0.0f))
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, -0.5f),  new Vector3(0.0f, 1.0f, 0.0f), new Vector2(0.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, -0.5f),   new Vector3(0.0f, 1.0f, 0.0f), new Vector2(1.0f, 1.0f)),
+            new VertexPositionNormal(new Vector3(0.5f, 0.5f, 0.5f),    new Vector3(0.0f, 1.0f, 0.0f), new Vector2(1.0f, 0.0f)),
+            new VertexPositionNormal(new Vector3(-0.5f, 0.5f, 0.5f),   new Vector3(0.0f, 1.0f, 0.0f), new Vector2(0.0f, 0.0f))
         };
 
         public static void CountIndexes()
@@ -184,7 +184,7 @@ namespace SysKurs.Model
         }
 
         public static void CreateCubeForLighting(out VertexBuffer vertexBuffer, out IndexBuffer indexBuffer,
-            out VertexArray vertexArray, out ShaderProgramm shaderProgram)
+            out VertexArray vertexArray, out ShaderProgramm shaderProgram, out Texture _diffuseMap, out Texture _specularMap)
         {
             CountIndexes();
             vertexBuffer = new VertexBuffer(VertexPositionNormal.VertexInfo, NormalVertexes.Length);
@@ -196,6 +196,12 @@ namespace SysKurs.Model
             vertexArray = new VertexArray(vertexBuffer);
 
             shaderProgram = new ShaderProgramm("../../../Shaders/Lighting Shaders/shader.vert", "../../../Shaders/Lighting Shaders/lighting.frag");
+
+            _diffuseMap = Texture.LoadFromFile("../../../Resources/Container 2/container2.png");       
+            _specularMap = Texture.LoadFromFile("../../../Resources/Container 2/container2_specular.png");
+
+            _diffuseMap.Use(TextureUnit.Texture0);
+            _specularMap.Use(TextureUnit.Texture1);
         }
     }
 }

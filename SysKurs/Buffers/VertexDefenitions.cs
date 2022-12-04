@@ -91,16 +91,19 @@ namespace SysKurs
     {
         public readonly Vector3 Position;
         public readonly Vector3 Normal;
+        public readonly Vector2 TexCoord;
         public static readonly VertexInfo VertexInfo = new VertexInfo(
             typeof(VertexPositionNormal),
             new VertexAttribute("Position", 0, 3, 0),
-            new VertexAttribute("Normal", 1, 3, 3 * sizeof(float))
+            new VertexAttribute("Normal", 1, 3, 3 * sizeof(float)),
+            new VertexAttribute("TextCoord", 2, 2, 6 * sizeof(float))
             );
 
-        public VertexPositionNormal(Vector3 position,Vector3 normal)
+        public VertexPositionNormal(Vector3 position,Vector3 normal, Vector2 texCoord)
         {
             Position = position;
             Normal = normal;
+            TexCoord = texCoord;
         }
     }
 }

@@ -30,8 +30,11 @@ public class Window : GameWindow
     private VertexArray LampVertexArray;
     private IndexBuffer LampIndexBuffer;
 
-    private Texture _texture;
-  
+    //Textures
+    private Texture _texture; //Without Lighting
+    private Texture _diffuseMap;
+    private Texture _specularMap;
+
     //Camera
     private Camera _camera;
     private bool _firstMove = true;
@@ -109,8 +112,7 @@ public class Window : GameWindow
         base.OnLoad();
 
         IsVisible = true;
-        //GL.ClearColor(Color.Black);
-        GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        GL.ClearColor(Color.Black);   
         GL.Enable(EnableCap.DepthTest);
 
         //RGB Cube
@@ -120,7 +122,7 @@ public class Window : GameWindow
         //Cube.CreateTexturedCube(out CubeVertexBuffer, out CubeIndexBuffer, out CubeVertexArray, out CubeShaderProgramm, out _texture);
 
         //Static Cube
-        Cube.CreateCubeForLighting(out CubeVertexBuffer, out CubeIndexBuffer, out CubeVertexArray, out CubeShaderProgramm);
+        Cube.CreateCubeForLighting(out CubeVertexBuffer, out CubeIndexBuffer, out CubeVertexArray, out CubeShaderProgramm, out _diffuseMap, out _specularMap);
 
         //Lamp 
         Lamp.CreateLamp(out LampVertexBuffer, out LampIndexBuffer, out LampVertexArray, out LampShaderProgramm);
@@ -188,20 +190,28 @@ public class Window : GameWindow
 
     private void DrawCube(FrameEventArgs args)
     {
+        _time += 10.0 * args.Time;
+
         GL.UseProgram(CubeShaderProgramm.ShaderProgrammHandle);
         GL.BindVertexArray(CubeVertexArray.VertexArrayHandle);
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, CubeIndexBuffer.IndexBufferHandle);
+   
+        var _model = Matrix4.Identity * Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(_time));
 
-        CubeShaderProgramm.SetMatrix4("model", Matrix4.Identity);
+        CubeShaderProgramm.SetMatrix4("model", _model);
         CubeShaderProgramm.SetMatrix4("view", _camera.GetViewMatrix());
         CubeShaderProgramm.SetMatrix4("projection", _camera.GetProjectionMatrix());
 
-        CubeShaderProgramm.SetVector3("objectColor", new Vector3(1.0f, 0.5f, 0.31f));
-        CubeShaderProgramm.SetVector3("lightColor", new Vector3(1.0f, 1.0f, 1.0f));
-        CubeShaderProgramm.SetVector3("lightPos", new Vector3(1.2f, 1.0f, 2.0f));
         CubeShaderProgramm.SetVector3("viewPos", _camera.Position);
 
+        CubeShaderProgramm.SetInt("material.diffuse", 0);
+        CubeShaderProgramm.SetInt("material.specular", 1);
+        CubeShaderProgramm.SetVector3("material.specular", new Vector3(0.5f, 0.5f, 0.5f));
+        CubeShaderProgramm.SetFloat("material.shininess", 32.0f);
 
+        SetPointLightShader(CubeShaderProgramm);
+        SetSpotLighShader(CubeShaderProgramm);
+         
         GL.DrawElements(PrimitiveType.Triangles, Cube.indexCount, DrawElementsType.UnsignedInt, 0);
     }
 
@@ -211,13 +221,39 @@ public class Window : GameWindow
         GL.BindVertexArray(LampVertexArray.VertexArrayHandle);
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, LampIndexBuffer.IndexBufferHandle);
 
-        Matrix4 lampMatrix = Matrix4.CreateScale(0.2f);
-        lampMatrix = lampMatrix * Matrix4.CreateTranslation(new Vector3(1.2f,1.0f,2.0f));
+        Matrix4 lampMatrix = Matrix4.Identity;
+        lampMatrix *= Matrix4.CreateScale(0.2f);
+        lampMatrix *= lampMatrix * Matrix4.CreateTranslation(new Vector3(1.2f,1.0f,2.0f));
 
         LampShaderProgramm.SetMatrix4("model", lampMatrix);
         LampShaderProgramm.SetMatrix4("view", _camera.GetViewMatrix());
         LampShaderProgramm.SetMatrix4("projection", _camera.GetProjectionMatrix());
 
         GL.DrawElements(PrimitiveType.Triangles, Lamp.indexCount, DrawElementsType.UnsignedInt, 0);
+    }
+
+    private void SetSpotLighShader(ShaderProgramm shader)
+    {
+        shader.SetVector3("spotLight.position", _camera.Position);
+        shader.SetVector3("spotLight.direction", _camera.Front);
+        shader.SetVector3("spotLight.ambient", new Vector3(0.0f, 0.0f, 0.0f));
+        shader.SetVector3("spotLight.diffuse", new Vector3(1.0f, 1.0f, 1.0f));
+        shader.SetVector3("spotLight.specular", new Vector3(1.0f, 1.0f, 1.0f));
+        shader.SetFloat("spotLight.constant", 1.0f);
+        shader.SetFloat("spotLight.linear", 0.09f);
+        shader.SetFloat("spotLight.quadratic", 0.032f);
+        shader.SetFloat("spotLight.cutOff", MathF.Cos(MathHelper.DegreesToRadians(12.5f)));
+        shader.SetFloat("spotLight.outerCutOff", MathF.Cos(MathHelper.DegreesToRadians(17.5f)));
+    }
+
+    private void SetPointLightShader(ShaderProgramm shader)
+    {
+        shader.SetVector3("pointLight.position", new Vector3(1.2f, 1.0f, 2.0f));
+        shader.SetVector3("pointLight.ambient", new Vector3(0.05f, 0.05f, 0.05f));
+        shader.SetVector3("pointLight.diffuse", new Vector3(0.8f, 0.8f, 0.8f));
+        shader.SetVector3("pointLight.specular", new Vector3(1.0f, 1.0f, 1.0f));
+        shader.SetFloat("pointLight.constant", 1.0f);
+        shader.SetFloat("pointLight.linear", 0.09f);
+        shader.SetFloat("pointLight.quadratic", 0.032f);
     }
 }

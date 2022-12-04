@@ -242,6 +242,18 @@ namespace SysKurs
             GL.Uniform3(_uniformLocations[name], data);
         }
 
+        public void SetFloat(string name, float data)
+        {
+            GL.UseProgram(ShaderProgrammHandle);
+            GL.Uniform1(_uniformLocations[name], data);
+        }
+
+        public void SetInt(string name, int data)
+        {
+            GL.UseProgram(ShaderProgrammHandle);
+            GL.Uniform1(_uniformLocations[name], data);
+        }
+
         private bool GetShaderUniform(string name, out ShaderUniform uniform)
         {
             uniform = new ShaderUniform();
