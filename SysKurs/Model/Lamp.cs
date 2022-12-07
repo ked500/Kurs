@@ -82,8 +82,7 @@ namespace SysKurs.Model
 
             vertexArray = new VertexArray(vertexBuffer);
 
-            shaderProgram = new ShaderProgramm("../../../Shaders/Lighting Shaders/shader.vert", 
-                "../../../Shaders/Lighting Shaders/shader.frag");
+            shaderProgram = new ShaderProgramm("../../../Shaders/Lighting Shaders/shader.vert", "../../../Shaders/Lighting Shaders/shader.frag");
         }   
     }
 }
